@@ -1,0 +1,171 @@
+<html>
+  <head>
+      <meta charset="utf-8">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
+       <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+      <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  </head>
+  <body class="grey lighten-2">
+    <nav class="green">
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo"style="margin-left:10px;">Assignment-Submission</a>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a  href="#">hello, {{ user.get_username }}</a>
+          </li>
+          {% if user.is_superuser %}
+          <li>
+            <a href="{% url 'post' %}">post an assignment</a>
+          </li>
+          {%endif%}
+          <li>
+            <form action="accounts/logout/"method="post" style="margin-top:5px;margin-right:5px;">
+              {% csrf_token %}
+              <button type="submit"class="blue-grey waves-effect waves-light btn-large ">logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <ul class="sidenav" id="mobile-nav">
+      <li>
+        <a  href="#">hello, {{ user.get_username }}</a>
+      </li>
+      {% if user.is_superuser %}
+      <li>
+        <a href="{% url 'post' %}">post an assignment</a>
+      </li>
+      {%endif%}
+      <li>
+        <form action="accounts/logout/" method="post" style="margin-top:5px;margin-left:30px;">
+          {% csrf_token %}
+          <button type="submit" class="waves-effect waves-light btn">logout</button>
+        </form>
+      </li>
+    </ul>
+
+    <script>
+        $(document).ready(function(){ $('.sidenav').sidenav(); });﻿
+    </script>
+    <nav class="grey lighten-2">
+        <div class="nav-wrapper">
+          <div class="col s12">
+              <a href="{% url 'index' %}" class="black-text breadcrumb">Home</a>
+
+            <a href="#!" class="black-text breadcrumb">{{request.resolver_match.kwargs.subjects}}</a>
+
+          </div>
+        </div>
+      </nav>
+
+  {% for sub in subject %}
+  <div class="row">
+      <div class="col s12 m12">
+
+<div class="card blue-grey">
+  {% if user.is_superuser %}
+  <div class='card-content white-text'>
+    <b><span class='card-title'>{{sub.assignmentName}}</span></b>
+  </div>
+    {% endif %}
+        <div  id="{{sub.assignmentName}}">
+
+
+
+        </div>
+        {% if user.is_superuser %}
+
+        <div class='card-action'>
+        <a href="{% url 'uploadInfo' upload=sub.assignmentName %}" style='text-decoration:none;'><b>Click here</b></a>
+        </div>
+        {% endif %}
+        </div>
+
+                            <!-- <div ></div> -->
+                          </div>
+                        </div>
+                    <!-- </div>
+                </div> -->
+
+                {% endfor %}
+
+
+
+
+
+
+
+
+<!-- {% if user.is_superuser %} -->
+
+<!-- {% for sub in subject %}
+
+          <div class="card" >
+              <div class="card-body">
+<div class="card-title">
+   <a href="{% url 'uploadInfo' upload=sub.assignmentName %}" style="text-decoration:none;"><b>{{sub.assignmentName }}</b></a>
+</div>
+                  <div class="card-subtitle mb-2 text-muted">{{sub.assignedBy}}</div>
+        </div></div>
+        <br>
+      {% endfor %}
+{% endif %} -->
+
+
+</body>
+<script>
+// var nw = new Date().getTime();
+// console.log(nw);
+{% for suc in subject %}
+timedown("{{suc.assignmentDate}}",'{{suc.assignmentName}}','{{ suc.assignmentName.url }}','{{suc.assignedBy}}',"{% url 'uploadInfo' upload=suc.assignmentName %}");
+{% endfor %}
+
+function timedown(ti,id,fnameurl,usn,upload){
+var tt=ti+"T12:00:00-06:30";
+var countDownDate = new Date(tt).getTime();
+var x = setInterval(function() {
+    var now = new Date().getTime();
+    // console.log(now);
+
+
+
+    // abc="a'a"f"'"
+    var distance = countDownDate - now;
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    var up="";
+    if (distance >0) {
+
+    document.getElementById(id).innerHTML ="<div class='card-content white-text'>"+
+                                              "{% if not user.is_superuser %}<b><span class='card-title'>"+id+"</span></b>{% endif %}"+
+                                              "<p>Total time left for submission:</p><h5>" +(days!=0 ? days + "d " : '') + (hours!= 0 ? hours + "h " : '')+
+                                              (minutes != 0 ? minutes + "m " : '') + seconds + "s</h5>"+
+                                            "</div>"+"  {% if not user.is_superuser %}"+
+                                            "<div class='card-action'>"+
+
+                                            "<a href="+upload+" style='text-decoration:none;'><b>Click here</b></a>"+
+                                            "</div>{% endif %}";
+
+  }
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById(id).innerHTML = "<div class='card-content white-text'>"+
+                                                "<span class='card-title'>submission time is closed</span>";
+    }
+}, 1000);
+}
+</script>

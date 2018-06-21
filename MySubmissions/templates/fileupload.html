@@ -1,0 +1,255 @@
+<html>
+  <head>
+      <meta charset="utf-8">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
+       <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+      <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  </head>
+  <body class="grey lighten-2 container-fluid">
+    <nav class="green">
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo"style="margin-left:10px;">Submissions</a>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a  href="#">hello, {{ user.get_username }}</a>
+          </li>
+          {% if user.is_superuser %}
+          <li>
+            <a href="{% url 'post' %}">post an assignment</a>
+          </li>
+          {%endif%}
+          <li>
+            <form action="accounts/logout/"method="post" style="margin-top:5px;margin-right:5px;">
+              {% csrf_token %}
+              <button type="submit"class="blue-grey waves-effect waves-light btn-large ">logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-nav">
+      <li>
+        <a  href="#">hello, {{ user.get_username }}</a>
+      </li>
+      {% if user.is_superuser %}
+      <li>
+        <a href="{% url 'post' %}">post an assignment</a>
+      </li>
+      {%endif%}
+      <li>
+        <form action="accounts/logout/"method="post" style="margin-top:5px;margin-left:30px;">
+          {% csrf_token %}
+          <button type="submit"class="waves-effect waves-light btn">logout</button>
+        </form>
+      </li>
+    </ul>
+
+    <script>
+        $(document).ready(function(){ $('.sidenav').sidenav(); });﻿
+    </script>
+
+    <nav class="grey lighten-2">
+        <div class="nav-wrapper">
+          <div class="col s12">
+              <a href="{% url 'index' %}" class="black-text breadcrumb">Home</a>
+                {% for i in assignmentInfo%}
+                <a href="#!" class="black-text breadcrumb">{{i.assignmentName}}</a>
+              {%endfor%}
+
+          </div>
+        </div>
+      </nav>
+
+  <!-- <nav>
+    <div class="nav-wrapper">
+
+      <ul class="left hide-on-med-and-down">
+        <li><a  href="#">hello, {{ user.get_username }}</a></li>
+        <li>
+          <a href="{% url 'post' %}">post an assignment</a>
+        </li>
+        <li><form action="accounts/logout/"method="post" style="margin:0">
+                          {% csrf_token %}
+          <button type="submit"class="waves-effect waves-light btn-large ">logout</button>
+        </form>
+      </li>
+
+
+      </ul>
+    </div>
+  </nav> -->
+<!-- <br> -->
+<!-- list_display=['subjects','assignmentName','assignmentDescription','assignmentFormat','assignmentDate','assignedBy'] -->
+<!-- <hr> -->
+
+<div style="padding:10px;">
+{% if user.is_superuser %}
+  <div class="row">
+    <div class="col s12 m12">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          {% for i in assignmentInfo%}
+          <span class="card-title">{{ i.assignmentName }}</span>
+          <p>{{i.assignmentDescription}}</p>
+          {% endfor %}
+        </div>
+        <!-- <div class="card-action"> -->
+          <!-- <a href="#">This is a link</a> -->
+          <!-- <a href="#">This is a link</a> -->
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+
+  <form method="POST" class="post-form"enctype="multipart/form-data">
+                             {% csrf_token %}
+ <button type="submit" name="b1"class="waves-effect waves-light btn-large"><span style="">CLear All</span></button>
+ <!-- <button type="submit" name="b2"class="waves-effect waves-light btn-large"><span style="">View All</span></button> -->
+
+
+                           </form>
+    <table>
+      <thead>
+         <tr>
+             <th>USN</th>
+             <th>uploaded Time</th>
+             <th>Open</th>
+             <th>Download</th>
+         </tr>
+       </thead>
+       <tbody>
+         {% for sub in file %}
+          <tr>
+            <td>{{sub.usn}}</td>
+            <td>{{sub.uploadTime}}</td>
+            <td><a href="{{ sub.fileUpload.url }}" >Open</a></td>
+
+            <td><a href="{{ sub.fileUpload.url }}" download >Download</a></td>
+          </tr>
+         {% endfor %}
+       </tbody>
+     </table>
+     {% else %}
+
+       <div class="row">
+         <div class="col s12 m12">
+           <div class="card-panel blue-grey">
+             <span class="white-text">
+               {% for i in assignmentInfo%}
+                 <div id="{{i.assignmentName}}"></div>
+               {%endfor%}
+               <div id="xxyz">
+                 <form method="Post" class="post-form"enctype="multipart/form-data">
+                   {% csrf_token %}
+                   <div class="file-field input-field">
+                     <div class="btn">
+                       {{ form }}
+                     </div>
+                     <div class="file-path-wrapper">
+                       <input class="file-path validate" id="fileExists"type="text"style="color:white;max-width:200px;">
+                     </div>
+                     <!-- <input type="submit" class="waves-effect waves-light btn-large"/> -->
+                   </div>
+
+                   <button class="btn waves-effect waves-light"onclick="filesubmission()" type="submit" name="action">Submit
+                     <i class="material-icons right">send</i>
+                   </button>
+
+
+
+                   <!-- <input type="submit"> -->
+                 </form>
+
+             <!-- <input type="file"> -->
+
+
+                                       <!-- <input id="logo" type="file" name="fname"class="custom-file-input"> -->
+
+                                    <script>$('.custom-file-input').on('change', function() {
+                                           let fileName = $(this).val().split('\\').pop();
+                                           $(this).next('.custom-file-label').addClass("selected").html(fileName);
+                                        });</script>
+               </div>
+             </span>
+           </div>
+         </div>
+       </div>
+       {%endif%}
+     </div>
+  </body>
+</html>
+
+
+
+                <!-- {% for sub in assignmentInfo %} -->
+
+                    <!-- <div id="{{sub.assignmentName}}"> </div> -->
+
+  <!-- <input type="date" class="form-control"name="fdescription"placeholder="write description here..." id="exampleFormControlTextarea1" rows="2"> -->
+
+                <!-- {% endfor %} -->
+
+                <script>
+                // var nw = new Date().getTime();
+                // console.log(nw);
+
+                function filesubmission(){
+
+                  whetherFileExists=document.getElementById('fileExists').value;
+                  if(whetherFileExists){
+                    M.toast({html: 'Submission successful'});
+                  }
+                }
+                //
+                {% for suc in assignmentInfo %}
+                timedown("{{suc.assignmentDate}}",'{{suc.assignmentName}}');
+                {% endfor %}
+
+                function timedown(ti,id){
+                var tt=ti+"T12:00:00-06:30";
+                var dd='<input type="file"/>';
+                var item = document.getElementById("xxyz");
+                var countDownDate = new Date(tt).getTime();
+                var x = setInterval(function()
+                {
+
+                    var now = new Date().getTime();
+                    var distance = countDownDate - now;
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    if (distance >=0)
+                    {
+
+                        document.getElementById(id).innerHTML ="<h4>Assignment name:"+id+"</h4><h6>Please submit the file soon...</h6>total time left for submission:<h3>" +(days!=0 ? days + "d " : '') + (hours!= 0 ? hours + "h " : '')
+                        + (minutes != 0 ? minutes + "m " : '') + seconds + "s</h3> <br>"
+                        // '<form method="Post" class="post-form"enctype="multipart/form-data">'+
+                        // "{% csrf_token %}"+
+                        // '{{form}}'+
+                        // '<input type="submit"></form>'+
+                        // dd
+                        ;
+                    }
+                    if (distance < 0)
+                    {
+                        item.parentNode.removeChild(item);
+                        clearInterval(x);
+                        document.getElementById(id).innerHTML = "submission time is closed";
+                    }
+                }, 1000);
+                }
+                </script>

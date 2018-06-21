@@ -1,0 +1,98 @@
+<html>
+  <head>
+      <meta charset="utf-8">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
+       <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+      <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  </head>
+  <body class="grey lighten-2">
+    <nav class="green">
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo"style="margin-left:10px;">Assignment-Submission</a>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a  href="#">hello, {{ user.get_username }}</a>
+          </li>
+          {% if user.is_superuser %}
+          <li>
+            <a href="{% url 'post' %}">post an assignment</a>
+          </li>
+          {%endif%}
+          <li>
+            <form action="accounts/logout/"method="post" style="margin-top:5px;margin-right:5px;">
+              {% csrf_token %}
+              <button type="submit"class="blue-grey waves-effect waves-light btn-large ">logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <ul class="sidenav" id="mobile-nav">
+      <li>
+        <a  href="#">hello, {{ user.get_username }}</a>
+      </li>
+      {% if user.is_superuser %}
+      <li>
+        <a href="{% url 'post' %}">post an assignment</a>
+      </li>
+      {%endif%}
+      <li>
+        <form action="accounts/logout/"method="post" style="margin-top:5px;margin-left:30px;">
+          {% csrf_token %}
+          <button type="submit"class="waves-effect waves-light btn">logout</button>
+        </form>
+      </li>
+    </ul>
+
+    <script>
+        $(document).ready(function(){ $('.sidenav').sidenav(); });﻿
+    </script>
+
+
+        <!-- <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">hello, ziyazee</a>
+                  </li>
+                </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                  <li>
+                    <a href="{% url 'post' %}">post an assignment</a>
+                  </li>
+
+                </ul>
+
+        </nav> -->
+
+              <ul class="collection with-header">
+                <li class="collection-header grey lighten-2"><h4>Subjects List</h4></li>
+                {% for i in yea %}
+                <li class="collection-item blue-grey" style="width:100%;"><a href="{% url 'assignmentList' subjects=i.subjectName %}"><h5><span class="white-text">{{ i.subjectName }}</span></h5></a></li>
+                {% endfor %}
+              </ul>
+
+
+
+
+
+
+
+
+
+
+
+    <br>
+  </body>

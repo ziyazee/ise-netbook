@@ -1,0 +1,68 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<div class="row">
+  <div class="col-sm-7">
+  <div style="padding-left:30px;">
+    <!-- <div class="jumbotron"> -->
+      <h1>
+        Post an assignment here
+      </h1>
+      <hr>
+    <!-- </div> -->
+  <form method="Post" class="post-form"enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <!-- {% for field in form.visible_fields %}
+                  {{field}}
+                  {% endfor %} -->
+                  <!-- {% for i in mainform %}
+                  {{ i }}
+                  <br>
+                  {%endfor %} -->
+
+                  <!-- {{mainform.as_table}} -->
+
+    {% for field in mainform %}
+      <div class="row">
+         <div class="">
+          {{ field.label_tag }}
+          {% if field.help_text %}
+          <sup>{{ field.help_text }}</sup>
+          {% endif %}
+          {{ field.errors }}
+         </div><div class="">
+           {{ field }}
+         </div>
+      </div>
+      <br>
+    {% endfor %}
+  <button type="submit"name="postit"class="btn"><span>submit</span></button>
+ </form>
+</div>
+</div>
+<div class="col-sm-5">
+    <div style="padding-left:30px;">
+<h1>You can add subjects here</h1>
+<br>
+              <form method="Post" class="post-form"enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- {% for field in form.visible_fields %}
+                    {{field}}
+                    {% endfor %} -->
+                    {{subform}}
+                    <button type="submit"name="sub"class="btn"><span>submit</span></button>
+                </form>
+              <!-- {% for i in yea %} -->
+              <!-- <h3>{{ i.subjects }}</h3> -->
+              <!-- {% endfor %} -->
+  </div>
+</div>
+</div>
+</body>
+</html>
