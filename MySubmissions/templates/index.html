@@ -17,7 +17,7 @@
   <body class="grey lighten-2">
     <nav class="green">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo"style="margin-left:10px;">Assignment-Submission</a>
+        <a href="#!" class="brand-logo"style="margin-left:10px;">Submissions</a>
         <a href="#" data-target="mobile-nav" class="sidenav-trigger">
           <i class="material-icons">menu</i>
         </a>
@@ -39,6 +39,7 @@
         </ul>
       </div>
     </nav>
+
     <ul class="sidenav" id="mobile-nav">
       <li>
         <a  href="#">hello, {{ user.get_username }}</a>
@@ -77,13 +78,35 @@
 
         </nav> -->
 
+
               <ul class="collection with-header">
                 <li class="collection-header grey lighten-2"><h4>Subjects List</h4></li>
-                {% for i in yea %}
-                <li class="collection-item blue-grey" style="width:100%;"><a href="{% url 'assignmentList' subjects=i.subjectName %}"><h5><span class="white-text">{{ i.subjectName }}</span></h5></a></li>
-                {% endfor %}
               </ul>
+              <div class="row">
+                  {% for i in yea%}
+                <div class="col s12 m12">
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
 
+                      <span class="card-title">
+                        <a href="{% url 'assignmentList' subjects=i.subjectName %}">
+                          <h5>
+                            <span class="white-text">{{ i.subjectName }}</span>
+                          </h5>
+                        </a>
+
+                      </span>
+
+                    </div>
+                    <!-- <div class="card-action"> -->
+                      <!-- <a href="#">This is a link</a> -->
+                      <!-- <a href="#">This is a link</a> -->
+                    <!-- </div> -->
+                  </div>
+                </div>
+                {% endfor %}
+
+              </div>
 
 
 
