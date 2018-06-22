@@ -71,6 +71,7 @@
       </nav>
 
   {% for sub in subject %}
+  
   <div class="row">
       <div class="col s12 m12">
 
@@ -80,7 +81,7 @@
     <b><span class='card-title'>{{sub.assignmentName}}</span></b>
   </div>
     {% endif %}
-        <div  id="{{sub.assignmentName}}">
+        <div  class="{{sub.assignmentName}}">
 
 
 
@@ -155,6 +156,7 @@ var x = setInterval(function() {
                                               "<p>Total time left for submission:</p><h5>" +(days!=0 ? days + "d " : '') + (hours!= 0 ? hours + "h " : '')+
                                               (minutes != 0 ? minutes + "m " : '') + seconds + "s</h5>"+
                                             "</div>"+"  {% if not user.is_superuser %}"+
+                                            "<p>{{assignedBy}}</p>"+
                                             "<div class='card-action'>"+
 
                                             "<a href="+upload+" style='text-decoration:none;'><b>Click here</b></a>"+

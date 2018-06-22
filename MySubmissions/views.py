@@ -7,6 +7,7 @@ from .models import main,submission,mysubjects
 from .forms import uploadForm,PostForm,subjectForm
 from django.template.context_processors import csrf
 from django.db.models import Count,Q
+# from collection import Counter
 
 def login_view(request):
     if request.method == 'POST':
@@ -25,6 +26,8 @@ def logout_view(request):
         logout(request)
         return redirect('/')
 def posted(request):
+    if request.user.is_authenticated:
+        name = request.user.username
     # choice=tuple([(i.subjectName,i.subjectName)for i in mysubjects.objects.all()])
     # print(choice)
     if request.method == 'POST' and 'postit' in request.POST:
@@ -33,7 +36,7 @@ def posted(request):
             mainform.save()
             return redirect("/index/")
     else:
-        mainform = PostForm()
+        mainform = PostForm( initial = {'assignedBy':name})
         # dummy(choice)
     if request.method == 'POST' and 'sub' in request.POST:
         subform = subjectForm(request.POST,request.FILES)
@@ -59,9 +62,12 @@ def index(request):
     else:
         return redirect("/")
 def assignmentList(request,subjects):
+    if request.user.is_authenticated:
+        usn = request.user.username
+    letsTry=main.objects.raw('''SELECT * FROM MySubmissions_submission WHERE assignmentName=%s assignedBy=%s''',[usn])
     subject=main.objects.filter(subjects=subjects)
     if request.user.is_authenticated:
-        return render(request,'assignments.html',{'subject':subject})
+        return render(request,'assignments.html',{'subject':subject,'letsTry':letsTry})
     else:
         return redirect("/")
 def uploadInfo(request,upload):
@@ -69,7 +75,9 @@ def uploadInfo(request,upload):
     # usn = None
     if request.user.is_authenticated:
         usn = request.user.username
+    letsTry=main.objects.filter(assignmentName=upload,assignedBy=usn).count()
 
+    studentfile=submission.objects.raw('''SELECT * FROM MySubmissions_submission WHERE assignmentName=%s AND usn=%s''',[upload,usn])
     assignmentInfo=main.objects.filter(assignmentName=upload)
     # file=filest.objects.filter(categorie=categorie)
     file=submission.objects.raw('''SELECT * FROM MySubmissions_submission WHERE assignmentName=%s GROUP BY usn''',[upload])
@@ -92,6 +100,6 @@ def uploadInfo(request,upload):
     else:
         form = uploadForm(auto_id=False, initial = {'assignmentName':upload,'usn':usn})
     if request.user.is_authenticated:
-        return render(request,'fileupload.html',{'file':file,'form':form,'assignmentInfo':assignmentInfo})
+        return render(request,'fileupload.html',{'letsTry':letsTry,'file':file,'form':form,'assignmentInfo':assignmentInfo,'studentfile':studentfile})
     else:
         return redirect("/")

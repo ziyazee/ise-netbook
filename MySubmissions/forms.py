@@ -38,6 +38,7 @@ class PostForm(forms.ModelForm):
     assignmentFormat = forms.CharField(max_length=2000,
         widget=forms.Textarea() )
 
+
     class Meta:
         # fdescription = forms.CharField(max_length=2000,
         # widget=forms.Textarea() )
@@ -50,6 +51,6 @@ class PostForm(forms.ModelForm):
         # assignedBy=forms.CharField(max_length=50)
         fields = ('subjects','assignmentName','assignmentDescription','assignmentFormat','assignmentDate','assignedBy',)
         widgets = {
-
+            'assignedBy': forms.HiddenInput(),
             'assignmentDate': DateInput()
         }
