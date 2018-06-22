@@ -61,6 +61,15 @@ def index(request):
         return render(request,'index.html',{'yea':yea})
     else:
         return redirect("/")
+def deleteMyAssignment(request,assignmentName):
+    x=main.objects.filter(assignmentName=assignmentName).values('subjects')
+    path=x[0]['subjects']
+    finalpath="/assignmentList/"+path+"/"
+    main.objects.filter(assignmentName=assignmentName).delete()
+    submission.objects.filter(assignmentName=assignmentName).delete()
+    return redirect(finalpath)
+
+    # return redirect("/assignmentList/django/")
 def assignmentList(request,subjects):
     if request.user.is_authenticated:
         usn = request.user.username
@@ -85,7 +94,7 @@ def uploadInfo(request,upload):
         submission.objects.filter(assignmentName=upload).delete()
             # file=submission.objects.filter(assignmentName=upload)
 
-        return HttpResponseRedirect(request.path_info)
+        # return HttpResponseRedirect(request.path_info)
     # if request.method == 'POST' and 'b2' in request.POST:
         # submission.objects.filter(assignmentName=upload).delete()
         # file=submission.objects.filter(assignmentName=upload)
