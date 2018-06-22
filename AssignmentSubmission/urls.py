@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'posts/$',views.posted,name="post"),
     url(r'^assignmentList/(?P<subjects>[\f\w-]+)/$',views.assignmentList,name='assignmentList'),
     url(r'^uploadsInfo/(?P<upload>[\f\w-]+)/$',views.uploadInfo,name='uploadInfo'),
+    url(r'^delete/(?P<assignmentName>[\f\w-]+)/$',views.deleteMyAssignment,name='delete'),
 
 ]
 
