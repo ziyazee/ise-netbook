@@ -13,6 +13,20 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!-- Compiled and minified JavaScript -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+      <style>
+      ::placeholder {
+          color: grey;
+          opacity: 1; /* Firefox */
+      }
+
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+         color: grey;
+      }
+
+      ::-ms-input-placeholder { /* Microsoft Edge */
+         color: grey;
+      }
+      </style>
   </head>
   <body class="">
     <nav class="green">
@@ -137,7 +151,7 @@
        </div><div class="">
          <input type="text" required id="getassignmentName" maxlength="100" />
          <input type="hidden" name="assignmentName" required id="setassignmentName" maxlength="100" />
-          
+
        </div>
     </div>
     <br>
@@ -148,7 +162,7 @@
 
 
        </div><div class="">
-         <textarea name="assignmentDescription" id="id_assignmentDescription"  rows="10" cols="40" maxlength="2000">
+         <textarea name="assignmentDescription" id="id_assignmentDescription"  placeholder="write none if want to keep it blank " required rows="10" cols="40" maxlength="2000">
 </textarea>
        </div>
     </div>
@@ -160,7 +174,7 @@
 
 
        </div><div class="">
-         <textarea name="assignmentFormat" id="id_assignmentFormat"  rows="10" cols="40" maxlength="2000">
+         <textarea name="assignmentFormat" id="id_assignmentFormat" required rows="10" cols="40" placeholder="write none if want to keep it blank "maxlength="2000">
 </textarea>
        </div>
     </div>
