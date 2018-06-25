@@ -1,62 +1,70 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <html>
 
 <head>
 <title>Login Form</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
 
 </head>
-<body>
+<body class="bg-info">
 
-   <main>
+  <div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center mb-5">ISE Netbook</h2>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <span class="anchor" id="formLogin"></span>
 
-    <center>
+                    <!-- form card login -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0">Login</h3>
+                        </div>
+                        <div class="card-body">
+                          <form class="site-form form-signin" action="/" method="post">
+                              {% csrf_token %}
+                              {% if next %}
+                              <input type="hidden" name="next" value="{{ next }}" />
+                          {% endif %}
+                                <div class="form-group">
+                                    <label for="uname1">Username</label>
+                                    <input type="text" class="form-control" name="username" id="uname1" required="">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" class="form-control" id="pwd1"name="password" required="" autocomplete="new-password">
+                                </div>
+                              
+                                <button type="button" class="btn btn-success btn-lg float-right">Login</button>
+                            </form>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card login -->
 
-        <div  class="z-depth-3 y-depth-3 x-depth-3 grey green-text lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px; margin-top: 50px; solid #EEE;">
-    <div class="section"></div>
-<h4>ISE Netbook</h4>
-<div class="section"></div>
+                </div>
 
 
-
-<form class="site-form form-signin" action="/" method="post">
-    {% csrf_token %}
-    {% if next %}
-    <input type="hidden" name="next" value="{{ next }}" />
-{% endif %}
-
-            <div class='row'>
-              <div class='input-field col s12'>
-                <input class='validate' type="text" name='username' id='email' required />
-                <label for='email'>Username</label>
-              </div>
             </div>
-            <div class='row'>
-              <div class='input-field col m12'>
-                <input class='validate' type='password' name='password' id='password' required />
-                <label for='password'>Password</label>
-              </div>
-              <label style='float: right;'>
-              <b style="color: #F5F5F5;">Forgot Password?</b>
-              </label>
-            </div>
-            <br/>
-            <center>
-              <div class='row'>
-                <button style="margin-left:65px;"  type='submit' name='btn_login' class='col  s6 btn btn-small white black-text  waves-effect z-depth-1 y-depth-1'>Login</button>
-              </div>
-            </center>
-     </form>
+            <!--/row-->
+
         </div>
+        <!--/col-->
+    </div>
 
-      </center>
-      </main>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <!--/row-->
+</div>
+<!--/container-->
 </body>
 </html>
