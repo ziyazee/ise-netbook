@@ -25,7 +25,7 @@ SECRET_KEY = 'nx0330)0@y@3bnej(u5cr8u7!cmp2!izu0di_czttk%(4*_o7-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ISENotebook.pythonanywhere.com']
+ALLOWED_HOSTS = ['ISENotebook.pythonanywhere.com','localhost']
 
 
 # Application definition
