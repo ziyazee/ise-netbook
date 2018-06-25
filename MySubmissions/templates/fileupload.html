@@ -17,7 +17,7 @@
   <body class="grey lighten-2 container-fluid">
     <nav class="green">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo"style="margin-left:10px;">Submissions</a>
+        <a href="#!" class="brand-logo"style="margin-left:10px;">ISENetbook</a>
         <a href="#" data-target="mobile-nav" class="sidenav-trigger">
           <i class="material-icons">menu</i>
         </a>
@@ -209,6 +209,37 @@
         </table>
        {%endif%}
      </div>
+
+
+             <footer class="page-footer">
+               <div class="container">
+                 <div class="row">
+                   <div class="col l6 s12">
+                     <h5 class="white-text">ISE Netbook</h5>
+                     <p class="grey-text text-lighten-4"><i>The struggle you are in today is developing the strength you need for tommorow ~Steve Jobs</i></p>
+                   </div>
+                   <div class="col l4 offset-l2 s12">
+                     <h5 class="white-text">Logout</h5>
+                     <ul>
+
+                       <li>
+                         <form action="accounts/logout/"method="post" style="margin-top:5px;margin-right:5px;">
+                           {% csrf_token %}
+                           <button type="submit"class="blue-grey waves-effect waves-light btn-large ">logout</button>
+                         </form>
+                       </li>
+                     </ul>
+                   </div>
+                 </div>
+               </div>
+               <div class="footer-copyright">
+                 <div class="container">
+
+                 <a class="grey-text text-lighten-4 right" href="#"></a>
+                 </div>
+               </div>
+             </footer>
+
   </body>
 </html>
 

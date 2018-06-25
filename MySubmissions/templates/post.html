@@ -1,27 +1,93 @@
-
-
-
-
-
-
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-</head>
-<body>
+  <head>
+      <meta charset="utf-8">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script> -->
+       <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+      <!-- Compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!-- Compiled and minified JavaScript -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  </head>
+  <body class="">
+    <nav class="green">
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo"style="margin-left:10px;">ISENetbook</a>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a  href="#">hello, {{ user.get_username }}</a>
+          </li>
+          {% if user.is_superuser %}
+          <li>
+            <a href="{% url 'post' %}">post an assignment</a>
+          </li>
+          {%endif%}
+          <li>
+            <form action="accounts/logout/"method="post" style="margin-top:5px;margin-right:5px;">
+              {% csrf_token %}
+              <button type="submit"class="blue-grey waves-effect waves-light btn-large ">logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-nav">
+      <li>
+        <a  href="#">hello, {{ user.get_username }}</a>
+      </li>
+      {% if user.is_superuser %}
+      <li>
+        <a href="{% url 'post' %}">post an assignment</a>
+      </li>
+      {%endif%}
+      <li>
+        <form action="accounts/logout/"method="post" style="margin-top:5px;margin-left:30px;">
+          {% csrf_token %}
+          <button type="submit"class="waves-effect waves-light btn">logout</button>
+        </form>
+      </li>
+    </ul>
+
+    <script>
+        $(document).ready(function(){ $('.sidenav').sidenav(); });﻿
+    </script>
+
+
+    <nav class="grey lighten-2">
+        <div class="nav-wrapper">
+          <div class="col s12">
+              <a href="{% url 'index' %}" class="black-text breadcrumb">Home</a>
+
+            <a href="#!" class="black-text breadcrumb">assignmentForm</a>
+
+          </div>
+        </div>
+      </nav>
+
+
+
+
+
+
 <div class="row">
-  <div class="col-sm-7">
+  <div class="col m5">
   <div style="padding-left:30px;">
     <!-- <div class="jumbotron"> -->
-      <h1>
+      <h4>
         Post an assignment here
-      </h1>
-      <hr>
+      </h4>
+      <!-- <hr> -->
     <!-- </div> -->
+
   <form method="Post" class="post-form"enctype="multipart/form-data">
                   {% csrf_token %}
                   <!-- {% for field in form.visible_fields %}
@@ -34,7 +100,7 @@
 
                   <!-- {{mainform.as_table}} -->
 
-    {% for field in mainform %}
+    <!-- {% for field in mainform.visible_fields %}
       <div class="row">
          <div class="">
           {{ field.label_tag }}
@@ -47,22 +113,94 @@
          </div>
       </div>
       <br>
-    {% endfor %}
-  <button type="submit"name="postit"class="btn"><span>submit</span></button>
+    {% endfor %} -->
+    <div class="row">
+        <div class="">
+         <label for="id_subjects">Subjects:</label>
+
+
+        </div><div class="">
+          <select name="subjects" id="id_subjects">
+            {% for values in mainform.subjects %}
+{{values}}
+ {% endfor %}
+  </select>
+       </div>
+    </div>
+    <br>
+
+    <div class="row">
+       <div class="">
+        <label for="id_assignmentName">AssignmentName:</label>
+
+
+       </div><div class="">
+         <input type="text" required id="getassignmentName" maxlength="100" />
+         <input type="hidden" name="assignmentName" required id="setassignmentName" maxlength="100" />
+          
+       </div>
+    </div>
+    <br>
+
+    <div class="row">
+       <div class="">
+        <label for="id_assignmentDescription">Assignmentdescription:</label>
+
+
+       </div><div class="">
+         <textarea name="assignmentDescription" id="id_assignmentDescription"  rows="10" cols="40" maxlength="2000">
+</textarea>
+       </div>
+    </div>
+    <br>
+
+    <div class="row">
+       <div class="">
+        <label for="id_assignmentFormat">Assignmentformat:</label>
+
+
+       </div><div class="">
+         <textarea name="assignmentFormat" id="id_assignmentFormat"  rows="10" cols="40" maxlength="2000">
+</textarea>
+       </div>
+    </div>
+    <br>
+
+    <div class="row">
+       <div class="">
+        <label for="id_assignmentDate">AssignmentDate:</label>
+
+
+       </div><div class="">
+         <input type="date" name="assignmentDate" id="id_assignmentDate" maxlength="2000" />
+       </div>
+    </div>
+    <br>
+    <input type="hidden" value="{{ user.get_username }}" name="assignedBy"/>
+  <button type="submit" onclick="assignment()"name="postit"class="btn"><span>submit</span></button>
  </form>
 </div>
 </div>
-<div class="col-sm-5">
+<div class="col m5">
     <div style="padding-left:30px;">
-<h1>You can add subjects here</h1>
+<h5>You can add a subject here</h5>
 <br>
               <form method="Post" class="post-form"enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- {% for field in form.visible_fields %}
                     {{field}}
                     {% endfor %} -->
-                    {{subform}}
-                    <button type="submit"name="sub"class="btn"><span>submit</span></button>
+                    <!-- {{subform}} -->
+                    <tr>
+                      <th>
+                        <label>subjectName:</label>
+                      </th>
+                      <td>
+                        <input type="text" id="getSubjectName" value="" />
+                        <input type="hidden" id="setSubjectName" name="subjectName" />
+                      </td>
+                    </tr>
+                    <button type="submit" onclick="my()" name="sub"class="btn"><span>submit</span></button>
                 </form>
               <!-- {% for i in yea %} -->
               <!-- <h3>{{ i.subjects }}</h3> -->
@@ -70,5 +208,60 @@
   </div>
 </div>
 </div>
+
+        <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">ISE Netbook</h5>
+                <p class="grey-text text-lighten-4"><i>The struggle you are in today is developing the strength you need for tommorow ~Steve Jobs</i></p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Logout</h5>
+                <ul>
+
+                  <li>
+                    <form action="accounts/logout/"method="post" style="margin-top:5px;margin-right:5px;">
+                      {% csrf_token %}
+                      <button type="submit"class="blue-grey waves-effect waves-light btn-large ">logout</button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+
+            <a class="grey-text text-lighten-4 right" href="#"></a>
+            </div>
+          </div>
+        </footer>
+
+
+
+
 </body>
 </html>
+
+<script>
+function assignment(){
+  var assignmentName=document.getElementById('getassignmentName').value;
+  var assign=assignmentName.replace(/ /g,"-");
+  document.getElementById('setassignmentName').value=assign;
+}
+function my(){
+  var subjectName=document.getElementById('getSubjectName').value;
+  console.log(subjectName.length);
+  var i;
+  var spaces="-";
+  var sub=subjectName.replace(" ","-");
+  document.getElementById('setSubjectName').value=sub;
+
+}
+
+
+$(document).ready(function(){
+$('select').formSelect();
+});
+</script>

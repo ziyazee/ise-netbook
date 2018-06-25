@@ -35,8 +35,7 @@ class PostForm(forms.ModelForm):
         choice=tuple([(i.subjectName,i.subjectName)for i in mysubjects.objects.all()])
         self.fields['subjects'] =forms.ChoiceField(choices=choice)
 
-    assignmentFormat = forms.CharField(max_length=2000,
-        widget=forms.Textarea() )
+
 
 
     class Meta:

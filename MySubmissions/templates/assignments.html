@@ -13,11 +13,24 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!-- Compiled and minified JavaScript -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+<style>
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+    
+</style>
   </head>
   <body class="grey lighten-2">
     <nav class="green">
       <div class="nav-wrapper">
-        <a href="#!" class="brand-logo"style="margin-left:10px;">Submissions</a>
+        <a href="#!" class="brand-logo"style="margin-left:10px;">ISENetbook</a>
         <a href="#" data-target="mobile-nav" class="sidenav-trigger">
           <i class="material-icons">menu</i>
         </a>
@@ -59,6 +72,11 @@
     <script>
         $(document).ready(function(){ $('.sidenav').sidenav(); });﻿
     </script>
+
+<!-- nav bar completes here -->
+
+<!-- bread crumbs starts here -->
+
     <nav class="grey lighten-2">
         <div class="nav-wrapper">
           <div class="col s12">
@@ -70,47 +88,38 @@
         </div>
       </nav>
 
-  {% for sub in subject %}
-  <div class="row">
-      <div class="col s12 m12">
 
-<div class="card blue-grey">
-  {% if user.is_superuser %}
-  <div class='card-content white-text'>
+<!-- bread crumbs complets here -->
 
-  <a href="{% url 'delete'  assignmentName=sub.assignmentName %}"><button type="submit" name="b1"class=" btn"><span style="">X</span></button>
+    {% for sub in subject %}
+      <div class="row">
+        <div class="col s12 m12">
+          <div class="card blue-grey">
 
+            <!--  this content is visible only if user is lecturer-->
+            {% if user.is_superuser %}
 
+              <!-- only the assigned lecturer can delete the assignment -->
+              {% if sub.assignedBy == user.get_username  %}
+                <a href="{% url 'delete'  assignmentName=sub.assignmentName %}"><button type="submit" name="b1"class="tooltipped btn"data-position="right" data-tooltip="Delete this assignment"><span style="">X</span></button></a>
+              {%endif%}
 
-    <b><span class='card-title'>{{sub.assignmentName}}</span></b>
-  </div>
-    {% endif %}
-        <div  id="{{sub.assignmentName}}">
+              <div class='card-content white-text'>
+                <b><span class='card-title'>{{sub.assignmentName}}</span></b>
+              </div>
 
-
-
+            {% endif %}
+            <div  id="{{sub.assignmentName}}">
+            </div>
+            {% if user.is_superuser %}
+              <div class='card-action'>
+                <a href="{% url 'uploadInfo' upload=sub.assignmentName %}" style='text-decoration:none;'><b>Click here</b></a>
+              </div>
+            {% endif %}
+          </div>
         </div>
-        {% if user.is_superuser %}
-
-        <div class='card-action'>
-        <a href="{% url 'uploadInfo' upload=sub.assignmentName %}" style='text-decoration:none;'><b>Click here</b></a>
-        </div>
-        {% endif %}
-        </div>
-
-                            <!-- <div ></div> -->
-                          </div>
-                        </div>
-                    <!-- </div>
-                </div> -->
-
-                {% endfor %}
-
-
-
-
-
-
+      </div>
+    {% endfor %}
 
 
 <!-- {% if user.is_superuser %} -->
@@ -128,11 +137,45 @@
       {% endfor %}
 {% endif %} -->
 
+        <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">ISE Netbook</h5>
+                <p class="grey-text text-lighten-4"><i>The struggle you are in today is developing the strength you need for tommorow ~Steve Jobs</i></p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Logout</h5>
+                <ul>
+
+                  <li>
+                    <form action="accounts/logout/"method="post" style="margin-top:5px;margin-right:5px;">
+                      {% csrf_token %}
+                      <button type="submit"class="blue-grey waves-effect waves-light btn-large ">logout</button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+
+            <a class="grey-text text-lighten-4 right" href="#"></a>
+            </div>
+          </div>
+        </footer>
+
 
 </body>
+
+
 <script>
 // var nw = new Date().getTime();
-// console.log(nw);
+$(document).ready(function(){
+    $('.tooltipped').tooltip();
+  });
+
 {% for suc in subject %}
 timedown("{{suc.assignmentDate}}",'{{suc.assignmentName}}','{{ suc.assignmentName.url }}','{{suc.assignedBy}}',"{% url 'uploadInfo' upload=suc.assignmentName %}");
 {% endfor %}
@@ -142,11 +185,6 @@ var tt=ti+"T12:00:00-06:30";
 var countDownDate = new Date(tt).getTime();
 var x = setInterval(function() {
     var now = new Date().getTime();
-    // console.log(now);
-
-
-
-    // abc="a'a"f"'"
     var distance = countDownDate - now;
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -159,20 +197,18 @@ var x = setInterval(function() {
                                               "{% if not user.is_superuser %}<b><span class='card-title'>"+id+"</span></b>{% endif %}"+
                                               "<p>Total time left for submission:</p><h5>" +(days!=0 ? days + "d " : '') + (hours!= 0 ? hours + "h " : '')+
                                               (minutes != 0 ? minutes + "m " : '') + seconds + "s</h5>"+
-                                            "<p><span class='text-white'>assigned By: <b>"+usn+"</b></span></p>"+
-                                            "</div>"+"  {% if not user.is_superuser %}"+
+                                              "<p><span class='text-white'>assigned By: <b>"+usn+"</b></span></p>"+
+                                              "</div>"+"  {% if not user.is_superuser %}"+
+                                              "<div class='card-action'>"+
+                                              "<a href="+upload+" style='text-decoration:none;'><b>Click here</b></a>"+
+                                              "</div>{% endif %}";
 
-                                            "<div class='card-action'>"+
-
-                                            "<a href="+upload+" style='text-decoration:none;'><b>Click here</b></a>"+
-                                            "</div>{% endif %}";
-
-  }
+                      }
     if (distance < 0) {
         clearInterval(x);
         document.getElementById(id).innerHTML = "<div class='card-content white-text'>"+
                                                 "<span class='card-title'>submission time is closed</span>";
-    }
+                     }
 }, 1000);
 }
 </script>

@@ -15,7 +15,7 @@ class main(models.Model):
     assignmentName=models.CharField(max_length=100)
     assignmentDescription=models.CharField(max_length=2000,blank=True)
     assignmentFormat=models.CharField(max_length=2000,blank=True)
-    assignmentDate=models.CharField(max_length=2000,blank=True)
+    assignmentDate=models.CharField(max_length=2000)
     assignedBy=models.CharField(max_length=50)
 class submission(models.Model):
     fileUpload=models.FileField()

@@ -32,6 +32,7 @@ def posted(request):
     # print(choice)
     if request.method == 'POST' and 'postit' in request.POST:
         mainform = PostForm(request.POST,request.FILES)
+        print(mainform)
         if mainform.is_valid():
             mainform.save()
             return redirect("/index/")
@@ -40,6 +41,8 @@ def posted(request):
         # dummy(choice)
     if request.method == 'POST' and 'sub' in request.POST:
         subform = subjectForm(request.POST,request.FILES)
+        # print(subform)
+        print(subform)
         if subform.is_valid():
             subform.save()
             return HttpResponseRedirect(request.path_info)
@@ -73,10 +76,10 @@ def deleteMyAssignment(request,assignmentName):
 def assignmentList(request,subjects):
     if request.user.is_authenticated:
         usn = request.user.username
-    letsTry=main.objects.raw('''SELECT * FROM MySubmissions_submission WHERE assignmentName=%s assignedBy=%s''',[usn])
+    # letsTry=main.objects.raw('''SELECT * FROM MySubmissions_submission WHERE assignmentName=%s assignedBy=%s''',[usn]
     subject=main.objects.filter(subjects=subjects)
     if request.user.is_authenticated:
-        return render(request,'assignments.html',{'subject':subject,'letsTry':letsTry})
+        return render(request,'assignments.html',{'subject':subject,'usn':usn})
     else:
         return redirect("/")
 def uploadInfo(request,upload):
