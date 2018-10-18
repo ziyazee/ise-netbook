@@ -36,16 +36,16 @@ ___
 
 ###### Subjects list:
 
-![Alt text](https://github.com/ziyazee/ise-netbook/tree/master/markdown%20images/1.jpeg?raw=true "Title")
+![Alt text](https://raw.githubusercontent.com/ziyazee/ise-netbook/tree/master/markdown%20images/1.jpeg?raw=true "Title")
 
 ###### Posting an assignment:
 
-![Alt text](https://github.com/ziyazee/ise-netbook/tree/master/markdown%20images/2.jpeg?raw=true "Title")
+![Alt text](https://raw.githubusercontent.com/ziyazee/ise-netbook/tree/master/markdown%20images/2.jpeg?raw=true "Title")
 
 ###### Assignment list:
 
-![Alt text](https://github.com/ziyazee/ise-netbook/tree/master/markdown%20images/3.jpeg?raw=true "Title")
+![Alt text](https://raw.githubusercontent.com/ziyazee/ise-netbook/tree/master/markdown%20images/3.jpeg?raw=true "Title")
 
 ###### Uplaoding fies:
 
-![Alt text](https://github.com/ziyazee/ise-netbook/tree/master/markdown%20images/4.jpeg?raw=true "Title")
+![Alt text](https://raw.githubusercontent.com/ziyazee/ise-netbook/tree/master/markdown%20images/4.jpeg?raw=true "Title")
