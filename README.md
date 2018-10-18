@@ -32,20 +32,20 @@ python manage.py runserver
 
 ___
 
-#### Some snapshots of this project:
+### Some snapshots of this project:
 
-###### Subjects list:
+#### Subjects list:
 
 ![Alt text](markdown_images/1.jpeg)
 
-###### Posting an assignment:
+#### Posting an assignment:
 
 ![Alt text](markdown_images/2.jpeg)
 
-###### Assignment list:
+#### Assignment list:
 
 ![Alt text](markdown_images/3.jpeg)
 
-###### Uplaoding fies:
+#### Uplaoding fies:
 
 ![Alt text](markdown_images/4.jpeg)
